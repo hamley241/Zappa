@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-
+import newrelic.agent
+newrelic.agent.initialize()
 import base64
 import boto3
 import collections
@@ -597,7 +598,7 @@ class LambdaHandler(object):
             content['body'] = json.dumps(str(body), sort_keys=True, indent=4)
             return content
 
-
+@newrelic.agent.lambda_handler()
 def lambda_handler(event, context):  # pragma: no cover
     return LambdaHandler.lambda_handler(event, context)
 
